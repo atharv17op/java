@@ -1,3 +1,11 @@
+
+1) Problem Statement: Create a class called Employee that includes three pieces of information as
+instance variables- first name, a last name and a monthly salary. Your class should have a constructor
+that initializes the three instance variables. Provide a set and a get method for each instance variable. If
+the monthly salary is not positive, set it to 0.0. Write a test application named EmployeeTest that
+demonstrates class Employee's capabilities. Create two Employee objects and display each object's
+yearly salary. Then give each Employee a 10% raise and display each Employee's yearly salary again.
+
 class Employee {
  private String firstName;
  private String lastName;
@@ -55,3 +63,1189 @@ emp1.getYearlySalary());
 emp2.getYearlySalary());
  }
 }
+
+
+2) Create class SavingsAccount. Use a static variable annualInterestRate to store the
+annual interest rate for all account holders. Each object of the class contains a private instance variable
+savingsBalance indicating the amount the saver currently has on deposit. Provide method
+calculateMonthlyInterest to calculate the monthly interest by multiplying the savingsBalance by
+annualInterestRate divided by 12this interest should be added to savingsBalance. Provide a static
+method modifyInterestRate that sets the annualInterestRate to a new value. Write a program to test
+class SavingsAccount. Instantiate two savingsAccount Objects, saver1 and saver2, with balances of Rs
+2000.00 and Rs 3000.00, respectively. Set annualInterestRate to 4%, then calculate the monthly interest
+and print the new balances for both savers. Then set the annualInterestRate to 5%, calculate the next
+month's interest and print the new balances for both savers.
+
+
+class SavingAccount{
+public static double annualInterestRate;
+private double savingsBalance;
+public void calculateMonthlyInterest() {
+double temp = (savingsBalance * annualInterestRate)/12;
+savingsBalance = savingsBalance + temp;
+}
+public static void modifyInterestRate(double NewRate) {
+annualInterestRate = NewRate;
+}
+public double getSavingsBalance() {
+return savingsBalance;
+}
+public void setSavingsBalance(double savingsBalance) {
+this.savingsBalance = savingsBalance;
+}
+}
+public class TestSavingAccount {
+public static void main(String[] args) {
+SavingAccount saver1 = new SavingAccount();
+SavingAccount saver2 = new SavingAccount();
+saver1.setSavingsBalance(2000.00);
+saver2.setSavingsBalance(3000.00);
+System.out.println("---------- Inital Saving Balance ---------");
+System.out.println("Saving account balance of saver 1 "+saver1.getSavingsBalance());
+System.out.println("Saving account balance of saver 2 "+saver2.getSavingsBalance());
+SavingAccount.modifyInterestRate(0.04);
+saver1.calculateMonthlyInterest();
+saver2.calculateMonthlyInterest();
+System.out.println("---------- Saving Balance after 4% Rate of Interest ---------");
+System.out.println("Saving account balance of saver 1 "+saver1.getSavingsBalance());
+System.out.println("Saving account balance of saver 2 "+saver2.getSavingsBalance());
+SavingAccount.modifyInterestRate(0.05);
+saver1.calculateMonthlyInterest();
+saver2.calculateMonthlyInterest();
+System.out.println("---------- Saving Balance after 5% Rate of Interest ---------");
+System.out.println("Saving account balance of saver 1 "+saver1.getSavingsBalance());
+System.out.println("Saving account balance of saver 2 "+saver2.getSavingsBalance());
+}
+}
+
+3) Problem Statement:
+Create abstract class Shape which has instance variables side, area and perimeter And methods
+calculateArea(), calculatePerimeter() as abstract methods and display() as concrete method. Write
+subclasses which extend Shape class like Triangle, Rectangle, Circle, Cube and Squere and override
+abstract methods and display methods in subclass take instance variable if needed as per the formula. And
+use parameterized constructor to initialize instance variables using “this” reference variable
+
+
+TestShape.java
+package Experiment;
+abstract class Shape{
+double side, area, perimeter;
+public Shape(double side) {
+this.side = side;
+}
+abstract public void calculateArea();
+abstract public void calculatePerimeter();
+public void display() {
+System.out.println("Shape : "+getClass().getSimpleName());
+System.out.println("Side : "+side);
+System.out.println("Area : "+area);
+System.out.println("Perimeter : "+perimeter);
+System.out.println();
+}
+}
+class Triangle extends Shape{
+private double base, height;
+public Triangle(double base, double height) {
+super(base);
+this.base = base;
+this.height = height;
+calculateArea();
+calculatePerimeter();
+}
+public void calculateArea() {
+area = 0.5 * base * height;
+}
+public void calculatePerimeter() {
+perimeter = 3 * side;
+}
+}
+class Circle extends Shape{
+public Circle(double radius) {
+super(radius);
+calculateArea();
+calculatePerimeter();
+}
+public void calculateArea() {
+area = Math.PI * side * side;
+}
+public void calculatePerimeter() {
+perimeter = 2 * Math.PI * side;
+}
+}
+class Square extends Shape{
+public Square(double side) {
+super(side);
+calculateArea();
+calculatePerimeter();
+}
+public void calculateArea() {
+area = side * side;
+}
+public void calculatePerimeter() {
+perimeter = 4 * side;
+}
+}
+class Rectangle extends Shape{
+private double length;
+public Rectangle(double length, double width) {
+super(length);
+this.length = length;
+side = width;
+calculateArea();
+calculatePerimeter();
+}
+public void calculateArea(){
+area = length * side;
+}
+public void calculatePerimeter() {
+perimeter = 2*(length + side);
+}
+}
+public class TestShape {
+public static void main(String[] args) {
+Shape triangle = new Triangle(5,6);
+triangle.display();
+Shape circle = new Circle(8);
+circle.display();
+Shape square = new Square(4);
+square.display();
+Shape rectangle = new Rectangle(5,8);
+rectangle.display();
+}
+}
+
+
+4)Problem Statement:
+Create the interface stack which has variable size, abstract methods push(), pop(),display(), overflow()
+and underflow(). We need to implement 3 subclasses IntegerStack, StringStack and DoubleStack
+respectively by implementing interface. All the methods in interface are declared for string. And in
+subclass for integerStack convert string to integer. Same thing to all other. Create one test class and
+check for the working of all the classes.
+
+
+TestStack.java
+package Experiment;
+interface Stack<T>{
+int size = 5;
+public boolean push(T element);
+public T pop();
+void display();
+boolean overflow();
+boolean underflow();
+}
+class IntegerStack implements Stack<Integer>{
+private final int maxSize;
+private int top;
+private Integer[] stack;
+public IntegerStack(int maxSize) {
+this.maxSize = maxSize;
+top = -1;
+stack = new Integer[maxSize];
+}
+public boolean push(Integer element) {
+if(!overflow()) {
+stack[++top] = element;
+return true;
+}
+return false;
+}
+public Integer pop() {
+if(!underflow()) {
+return stack[top--];
+}
+return null;
+}
+public boolean overflow() {
+return top == maxSize-1;
+}
+public boolean underflow() {
+return top == -1;
+}
+public void display() {
+if(!underflow()) {
+for(int i = top; i>=0; i--) {
+System.out.println(stack[i]+ " ");
+}
+System.out.println();
+}
+}
+}
+class StringStack implements Stack<String>{
+private final int size;
+private int top;
+private String[] stack;
+public StringStack(int maxSize) {
+this.size = maxSize;
+top = -1;
+stack = new String[size];
+}
+public boolean push(String element) {
+if(!overflow()) {
+stack[++top] = element;
+return true;
+}
+return false;
+}
+public String pop() {
+if(!underflow()) {
+return stack[top--];
+}
+return null;
+}
+public boolean overflow() {
+return top == size-1;
+}
+public boolean underflow() {
+return top == -1;
+}
+public void display() {
+if(!underflow()) {
+for(int i = top; i >=0; i--) {
+System.out.println(stack[i]+ " ");
+}
+System.out.println();
+}
+}
+}
+class DoubleStack{
+}
+public class TestStack {
+public static void main(String[] args) {
+IntegerStack intStack = new IntegerStack(5);
+intStack.push(10);
+intStack.push(20);
+intStack.push(30);
+intStack.push(40);
+intStack.push(50);
+intStack.display();
+System.out.println("Pooped = "+intStack.pop());
+intStack.display();
+StringStack strStack = new StringStack(5);
+strStack.push("Apple");
+strStack.push("Mango");
+strStack.push("Pineapple");
+strStack.push("Strawbery");
+strStack.push("Pear");
+strStack.display();
+System.out.println("Pooped = "+strStack.pop());
+strStack.display();
+}
+}
+
+
+5) Problem Statement: Write a Java program that creates a class hierarchy for employees of a company.
+The base class should be Employee, with subclasses Manager, Developer, and Programmer. Each
+subclass should have properties such as name, address, salary, and job title. Implement methods for
+calculating bonuses, generating performance reports, and managing projects.
+EmployeeTest.java
+package Interface;
+public class EmployeeTest {
+public static void main(String[] args) {
+Manager manager = new Manager("Shifa", "Karad", "Manager", 60000.0, 5);
+Developer developer = new Developer("Priya", "Pune", "Developer", 90000.0, "Java");
+Programmer prog = new Programmer("Anuja", "Pune", "Programmer", 50000, "Python");
+System.out.println("Manager's Bonus : "+manager.CalculateBonus());
+System.out.println("Developer's Bonus :"+developer.CalculateBonus());
+System.out.println("Programmer's Bonus : "+prog.CalculateBonus());
+System.out.println(manager.PerformanceReport());
+System.out.println(developer.PerformanceReport());
+System.out.println(prog.PerformanceReport());
+System.out.println(manager.ManagingProject());
+System.out.println(developer.ManagingProject());
+System.out.println(prog.ManagingProject());
+}
+}
+Developer.java
+package Interface;
+public class Developer extends Employee{
+private String ProgrammingLanguage;
+public Developer(String Name, String Address, String JobTitle, double Salary, String
+ProgrammingLanguage) {
+super(Name, Address, JobTitle, Salary);
+this.ProgrammingLanguage = ProgrammingLanguage;
+}
+public String getProgrammingLanguage() {
+return ProgrammingLanguage;
+}
+public double CalculateBonus() {
+return getSalary()*0.10;
+}
+public String PerformanceReport() {
+return "Performance Report of "+getName()+" : Outstanding.";
+}
+public String ManagingProject() {
+return getName()+" is responsible to prepare Code using
+"+getProgrammingLanguage()+".";
+}
+}
+Employee.java
+package Interface;
+public class Employee {
+private String Name, Address, JobTitle;
+private double Salary;
+public Employee(String Name, String Address, String JobTitle, double Salary) {
+this.Name = Name;
+this.Address = Address;
+this.JobTitle = JobTitle;
+this.Salary = Salary;
+}
+public String getName() {
+return Name;
+}
+public String getAddress() {
+return Address;
+}
+public String getJobTitle() {
+return JobTitle;
+}
+public double getSalary() {
+return Salary;
+}
+public double CalculateBonus() {
+return 0;
+}
+public String PerformanceReport() {
+return "No Report Available";
+}
+}
+Manager.java
+package Interface;
+public class Manager extends Employee {
+private int NoOfSubordinates;
+public Manager(String Name, String Address, String JobTitle, double Salary, int
+NoOfSubordinates) {
+super(Name, Address, JobTitle, Salary);
+this.NoOfSubordinates = NoOfSubordinates;
+}
+public int getNoOfSubordinates() {
+return NoOfSubordinates;
+}
+public double CalculateBonus() {
+return getSalary() * 0.05;
+}
+public String PerformanceReport() {
+return "Performance Report of "+getName()+" : Excellent.";
+}
+public String ManagingProject() {
+return getName()+" is Managing Android Projects.";
+}
+}
+Programmer.java
+package Interface;
+public class Programmer extends Developer {
+public Programmer(String Name, String Address, String JobTitle, double Salary, String
+ProgrammingLanguage) {
+super(Name, Address, JobTitle, Salary, ProgrammingLanguage);
+}
+public double CalculateBonus() {
+return getSalary()*0.9;
+}
+public String PerformanceReport() {
+return "Performance Report of "+getName()+" : Outstanding.";
+}
+public String ManagingProject() {
+return getName()+" is responsible to Debug Code using
+"+getProgrammingLanguage()+".";
+}
+}
+
+
+6)Problem Statement:
+Develop a mathematical package for Statistical operations like Mean, Median, Average, Standard
+deviation. Create a sub package in the math package -convert. In “convert” package provide classes to
+convert decimal to octal, binary, hex and vice-versa. Develop application program to use this package,
+and build executable jar file of it.
+Application.java
+import Mathematical.*;
+import Mathematical.convert.ConvertToBinary;
+import Mathematical.convert.ConvertToDecimal;
+import Mathematical.convert.ConvertToHex;
+import Mathematical.convert.ConvertToOctal;
+public class Application {
+public static void main(String[] args) {
+double[] Data = {6,7,11};
+Mean mean = new Mean(Data);
+Median median = new Median(Data);
+Average avg = new Average(Data);
+SandardDeviation sd = new SandardDeviation(mean.CalculateMean(), Data);
+System.out.println("Mean = "+mean.CalculateMean());
+System.out.println("Median = "+median.CalculateMedian());
+System.out.println("Average = "+avg.CalculateAverage());
+System.out.println("Standard Deviation = "+sd.CalcualteStandardDeviation());
+ConvertToBinary binary = new ConvertToBinary(25);
+ConvertToHex hex = new ConvertToHex(56);
+ConvertToOctal octal = new ConvertToOctal(14);
+ConvertToDecimal dec = new ConvertToDecimal("1001");
+System.out.println("\n\nBinary Value : "+binary.GetConvertToBinary());
+System.out.println("Hexadecimal Value : "+hex.GetConvertToHex());
+System.out.println("Octal Value : "+octal.GetConvertToOctal());
+System.out.println("Decimal Value : "+dec.GetConvertToDecimal());
+}
+}
+package Mathematical
+Average.java
+package Mathematical;
+public class Average {
+public double[] Numbers;
+public Average(double[] Numbers) {
+this.Numbers = Numbers;
+}
+public double CalculateAverage() {
+double sum =0;
+for(double i : Numbers) {
+sum= sum + i;
+}
+return sum/Numbers.length;
+}
+}
+Mean.java
+package Mathematical;
+public class Mean {
+public double[] Numbers;
+public Mean(double[] Numbers) {
+this.Numbers = Numbers;
+}
+public double CalculateMean() {
+double sum =0;
+for(double i : Numbers) {
+sum= sum + i;
+}
+return sum/Numbers.length;
+}
+}
+Median.java
+package Mathematical;
+import java.util.Arrays;
+public class Median {
+public double[] Numbers;
+public Median(double[] Numbers) {
+this.Numbers = Numbers;
+}
+public double CalculateMedian() {
+Arrays.sort(Numbers);
+int middle = Numbers.length/2;
+if(Numbers.length/2 == 0) {
+return Numbers[middle-1] + Numbers[middle]/2;
+}
+return Numbers[middle];
+}
+}
+SandardDeviation.java
+package Mathematical;
+public class SandardDeviation {
+double mean;
+double sum =0;
+double[] Numbers;
+public SandardDeviation(double mean, double[] Numbers) {
+this.mean = mean;
+this.Numbers = Numbers;
+}
+public double CalcualteStandardDeviation() {
+for(double i : Numbers) {
+sum = sum + Math.pow(i - mean, 2);
+}
+return Math.sqrt(sum/Numbers.length);
+}
+}
+Mathematical.convert Package
+ConvertToBinary.java
+package Mathematical.convert;
+public class ConvertToBinary {
+int number;
+public ConvertToBinary(int number) {
+this.number = number;
+}
+public String GetConvertToBinary() {
+return Integer.toBinaryString(number);
+}
+}
+ConvertToDecimal.java
+package Mathematical.convert;
+public class ConvertToDecimal {
+String Binary;
+public ConvertToDecimal(String Binary) {
+this.Binary = Binary;
+}
+public int GetConvertToDecimal() {
+return Integer.parseInt(Binary,2);
+}
+}
+ConvertToHex.java
+package Mathematical.convert;
+public class ConvertToHex {
+int number;
+public ConvertToHex(int number) {
+this.number = number;
+}
+public String GetConvertToHex() {
+return Integer.toHexString(number);
+}
+}
+ConvertToOctal.java
+package Mathematical.convert;
+public class ConvertToOctal {
+int number;
+public ConvertToOctal(int number) {
+this.number = number;
+}
+public String GetConvertToOctal() {
+return Integer.toOctalString(number);
+}
+}
+
+7)Problem Statement:
+Develop a BankAccount class which should contain all methods of Bank i.e balanceEnquery(),
+withdraw(), transfer() and deposit(). You should create at least two objects of BankAccount using
+array and do all operations mentioned above. Also generate user defined exception
+LowBalanceException, NegetiveNumberException and PasswordMismatchException whenever
+required. To transfer amount from one account to another use two BankAccount objects.
+Bank. java
+package BankAccount;
+import java.util.Scanner;
+public class Bank {
+public static void main(String[] args) {
+// TODO Auto-generated method stub
+Scanner sc = new Scanner(System.in);
+String t;
+System.out.println("Create Account 1");
+System.out.println("Account Number : ");
+int AccountNo = sc.nextInt();
+System.out.println("Account Holder Name : ");
+String AccountHolderName = sc.next();
+System.out.println("Enter Password : ");
+String Password = sc.next();
+System.out.println("Enter Balance Amt ");
+double BalanceAmt = sc.nextDouble();
+BankAccount Customer1 = new BankAccount(AccountNo, AccountHolderName,
+Password, BalanceAmt);
+System.out.println("Create Account 2");
+System.out.println("Account Number : ");
+int AccountNo1 = sc.nextInt();
+System.out.println("Account Holder Name : ");
+String AccountHolderName1 = sc.next();
+System.out.println("Enter Password : ");
+String Password1 = sc.next();
+System.out.println("Enter Balance Amt ");
+double BalanceAmt1 = sc.nextDouble();
+BankAccount Customer2 = new BankAccount(AccountNo1, AccountHolderName1,
+Password1, BalanceAmt1);
+//Display Balance of Customer 1
+System.out.println("Account No : "+Customer1.AccountNo+ "\nAccount Holder Name :
+"+Customer1.AccountHolderName+"\nBalance : "+Customer1.BalanceEnquery());
+//Display Balance of Customer 2
+System.out.println("Account No : "+Customer2.AccountNo+ "\nAccount Holder Name :
+"+Customer2.AccountHolderName+"\nBalance : "+Customer2.BalanceEnquery());
+do {
+System.out.println("1. Deposit \n 2. Withdraw \n 3. Transfer");
+int ch = sc.nextInt();
+System.out.println("Enter your Account number ");
+int dep = sc.nextInt();
+System.out.println("Enter Pin");
+String pwd = sc.next();
+if(dep==AccountNo && pwd.equals(Password) || dep == AccountNo1 &&
+pwd.equals(Password1)) {
+switch(ch) {
+case 1 :
+System.out.println("Please Enter Amount to be deposited : ");
+double temp1 = sc.nextDouble();
+if(dep == AccountNo) {
+Customer1.Deposit(temp1);
+System.out.println("Balance Amount :
+"+Customer1.BalanceEnquery());
+}
+if(dep == AccountNo1) {
+Customer2.Deposit(temp1);
+System.out.println("Balance Amount :
+"+Customer2.BalanceEnquery());
+}
+break;
+case 2:
+System.out.println("Please Enter Amount to be Withdrawn : ");
+double WA1 = sc.nextDouble();
+if(dep == AccountNo) {
+Customer1.Withdraw(WA1);
+System.out.println("Balance Amount :
+"+Customer1.BalanceEnquery());
+}
+if(dep == AccountNo1) {
+Customer2.Withdraw(WA1);
+System.out.println("Balance Amount :
+"+Customer2.BalanceEnquery());
+}
+break;
+case 3 :
+System.out.println("Enter the Account number of Reciever's Bank");
+int rec = sc.nextInt();
+if(rec==AccountNo || rec == AccountNo1 && rec != dep) {
+System.out.println("Enter Amount to be transfered : ");
+double tempamt = sc.nextDouble();
+Customer1.Transfer(Customer2, tempamt, pwd);
+//Display Balance of Customer 1
+System.out.println("Account No : "+Customer1.AccountNo+
+"\nAccount Holder Name : "+Customer1.AccountHolderName+"\nBalance :
+"+Customer1.BalanceEnquery());
+//Display Balance of Customer 2
+System.out.println("Account No : "+Customer2.AccountNo+
+"\nAccount Holder Name : "+Customer2.AccountHolderName+"\nBalance :
+"+Customer2.BalanceEnquery());
+}
+break;
+}
+}
+System.out.println("Do you want to continue (y/n)");
+t = sc.next();
+}while(t.equals("y"));
+}
+}
+BankAccount.java
+package BankAccount;
+import java.util.Scanner;
+public class BankAccount {
+int AccountNo;
+String AccountHolderName, Password;
+double Balance;
+// Scanner sc = new Scanner(System.in);
+public BankAccount(int AccountNo, String AccountHolderName, String Password, double
+Balance) {
+this.AccountHolderName = AccountHolderName;
+this.AccountNo = AccountNo;
+this.Password = Password;
+this.Balance = Balance;
+}
+public double BalanceEnquery() {
+return Balance;
+}
+public void Withdraw(double WithdrawAmt) {
+try {
+if(WithdrawAmt > Balance) {
+throw new LowBalanceException("Not sufficient Balance in your
+Account");
+}
+Balance = Balance - WithdrawAmt;
+System.out.println("Debited "+WithdrawAmt+" amount from your
+Account."+AccountNo);
+}
+catch(LowBalanceException e)
+{
+System.out.println(e);
+}
+}
+public void Transfer(BankAccount ob, double Amount, String Password) {
+try {
+if(!Password.equals(Password)) {
+throw new PasswordMismatchException("Incorrect Password!!!!");
+}
+Balance = Balance - Amount;
+ob.Deposit(Amount);
+System.out.println("Transfered "+Amount+" to "+ob.AccountNo);
+}
+catch(PasswordMismatchException e) {
+System.out.println(e);
+}
+}
+public void Deposit(double DepositAmt) {
+try {
+if(DepositAmt < 0) {
+throw new NegativeNumberException("Please Enter Positive Number");
+}
+Balance = Balance + DepositAmt;
+System.out.println("Credited "+DepositAmt+" in your Account "+AccountNo);
+}
+catch(NegativeNumberException e){
+System.out.println(e);
+}
+}
+}
+LowBalanceException.java
+package BankAccount;
+public class LowBalanceException extends Exception{
+public LowBalanceException(String Message) {
+super(Message);
+}
+}
+NegativeNumberException.java
+package BankAccount;
+public class NegativeNumberException extends Exception {
+public NegativeNumberException(String Message){
+super(Message);
+}
+}
+PasswordMismatchException.java
+package BankAccount;
+public class PasswordMismatchException extends Exception {
+public PasswordMismatchException(String Message) {
+super(Message);
+}
+}
+
+8) Problem Statement: Take file name as input to your program through command line, if file exists the
+open and display contents of the file. After displaying contents of file ask user – 1.do you want to add the
+data at the end of file or 2. replace specified text in file by other text. Based on user’s response, then
+accept data from user and append it to file. If file in not existing then create a fresh new-file and store user
+data into it. Also user should type exit on new line to stop the program. Do this program using Character
+stream classes
+FileManager.java
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Scanner;
+public class FileManager {
+public static void main(String[] args) throws FileNotFoundException, IOException {
+// TODO Auto-generated method stub
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter the File name");
+String Filename = sc.nextLine();
+File file = new File(Filename);
+if(file.exists()) {
+System.out.println("File found...");
+try(BufferedReader br = new BufferedReader(new FileReader(file))){
+String line;
+while((line=br.readLine()) != null) {
+System.out.println(line);
+}
+}catch(IOException e) {
+System.out.println("Error reading the file : "+e.getMessage());
+}
+System.out.println("Select the choice");
+System.out.println("1. Append data to the end of existing file");
+System.out.println("2. Replace specific text in the file");
+int choice = sc.nextInt();
+sc.nextLine();
+switch(choice) {
+case 1:
+appendToFile(file, sc);
+break;
+case 2:
+replaceInFile(file, sc);
+break;
+default:
+System.out.println("Enter valid choice");
+}
+}
+else {
+System.out.println("File does not exist");
+appendToFile(file,sc);
+}
+sc.close();
+}
+public static void appendToFile(File file, Scanner sc) throws IOException {
+System.out.println("Enter Data to append to the file and type 'exit' to stop");
+try(BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))){
+String Data;
+while(!(Data = sc.nextLine()).equalsIgnoreCase("exit")) {
+writer.write(Data);
+writer.newLine();
+}
+System.out.println("Data appended Successfully");
+}catch(Exception e) {
+System.out.println("Error writing the file : "+e.getMessage());
+}
+}
+private static void replaceInFile(File file, Scanner scanner) {
+ System.out.print("Enter the text to replace: ");
+ String oldText = scanner.nextLine();
+ System.out.print("Enter the new text: ");
+ String newText = scanner.nextLine();
+ StringBuilder content = new StringBuilder();
+ // Read file and replace text
+ try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+ String line;
+ while ((line = reader.readLine()) != null) {
+ content.append(line.replace(oldText, newText)).append(System.lineSeparator());
+ }
+ } catch (IOException e) {
+ System.out.println("Error reading the file: " + e.getMessage());
+ return;
+ }
+ // Write the updated content back to the file
+ try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+ writer.write(content.toString());
+ System.out.println("Text replaced successfully.");
+ } catch (IOException e) {
+ System.out.println("Error writing to the file: " + e.getMessage());
+ }
+ }
+}
+
+9) Problem Statement: Develop a Swing GUI based standard calculator program. Use event
+handling, Layout of swing package.
+Calculator.java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+public class Calculator extends JFrame implements ActionListener {
+ private JTextField display;
+ private double num1, num2, result;
+ private char operator;
+ public Calculator() {
+ setTitle("Calculator");
+ setSize(300, 400);
+ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ setLayout(new BorderLayout());
+
+ display = new JTextField();
+ display.setEditable(false);
+ display.setFont(new Font("Arial", Font.BOLD, 24));
+ add(display, BorderLayout.NORTH);
+
+ JPanel panel = new JPanel();
+ panel.setLayout(new GridLayout(4, 4, 5, 5));
+
+ String[] buttons = {
+ "7", "8", "9", "/",
+ "4", "5", "6", "*",
+ "1", "2", "3", "-",
+ "0", "C", "=", "+"
+ };
+
+ for (String text : buttons) {
+ JButton button = new JButton(text);
+ button.setFont(new Font("Arial", Font.BOLD, 18));
+ button.addActionListener(this);
+ panel.add(button);
+ }
+
+ add(panel, BorderLayout.CENTER);
+ setVisible(true);
+ }
+ @Override
+ public void actionPerformed(ActionEvent e) {
+ String command = e.getActionCommand();
+
+ if (command.charAt(0) >= '0' && command.charAt(0) <= '9') {
+ display.setText(display.getText() + command);
+ } else if (command.equals("C")) {
+ display.setText("");
+ num1 = num2 = result = 0;
+ } else if (command.equals("=")) {
+ num2 = Double.parseDouble(display.getText());
+ switch (operator) {
+ case '+': result = num1 + num2; break;
+ case '-': result = num1 - num2; break;
+ case '*': result = num1 * num2; break;
+ case '/': result = num2 != 0 ? num1 / num2 : 0; break;
+ }
+ display.setText(String.valueOf(result));
+ } else {
+ num1 = Double.parseDouble(display.getText());
+ operator = command.charAt(0);
+ display.setText("");
+ }
+ }
+ public static void main(String[] args) {
+ new Calculator();
+ }
+}
+
+10) Problem Statement: Create Stop Watch with Swing GUI and Multithreading. Provide Facility of Lap
+Counting.
+Stopwatch.java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+public class Stopwatch extends JFrame {
+private JLabel timeLabel;
+ private JButton startButton, stopButton, lapButton, resetButton;
+ private ArrayList<String> lapTimes;
+ private JTextArea lapDisplay;
+ private boolean running;
+ private long startTime;
+ private Thread timerThread;
+
+ public Stopwatch() {
+ setTitle("Stopwatch with Lap Counting");
+ setSize(300, 300);
+ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ setLayout(new FlowLayout());
+ timeLabel = new JLabel("00:00:00");
+ timeLabel.setFont(new Font("Serif", Font.BOLD, 40));
+ add(timeLabel);
+ startButton = new JButton("Start");
+ stopButton = new JButton("Stop");
+ lapButton = new JButton("Lap");
+ resetButton = new JButton("Reset");
+
+ add(startButton);
+ add(stopButton);
+ add(lapButton);
+ add(resetButton);
+
+ lapTimes = new ArrayList<>();
+ lapDisplay = new JTextArea(10, 20);
+ lapDisplay.setEditable(false);
+ add(new JScrollPane(lapDisplay));
+ startButton.addActionListener(new StartListener());
+ stopButton.addActionListener(new StopListener());
+ lapButton.addActionListener(new LapListener());
+ resetButton.addActionListener(new ResetListener());
+ running = false;
+ }
+
+ private class StartListener implements ActionListener {
+ @Override
+ public void actionPerformed(ActionEvent e) {
+ if (!running) {
+ startTime = System.currentTimeMillis();
+ running = true;
+ timerThread = new Thread(() -> {
+ while (running) {
+ long elapsed = System.currentTimeMillis() - startTime;
+ updateLabel(elapsed);
+ try {
+ Thread.sleep(100);
+ } catch (InterruptedException ex) {
+ Thread.currentThread().interrupt();
+ }
+ }
+ });
+ timerThread.start();
+ }
+ }
+ }
+
+ private class StopListener implements ActionListener {
+ @Override
+ public void actionPerformed(ActionEvent e) {
+ running = false;
+ }
+ }
+ private class LapListener implements ActionListener {
+ @Override
+ public void actionPerformed(ActionEvent e) {
+ if (running) {
+ long elapsed = System.currentTimeMillis() - startTime;
+ String lapTime = formatTime(elapsed);
+ lapTimes.add(lapTime);
+ lapDisplay.append("Lap: " + lapTime + "\n");
+ }
+ }
+ }
+
+ private class ResetListener implements ActionListener {
+ @Override
+ public void actionPerformed(ActionEvent e) {
+ running = false;
+ lapTimes.clear();
+ lapDisplay.setText("");
+ timeLabel.setText("00:00:00");
+ }
+ }
+ private void updateLabel(long elapsed) {
+ String formattedTime = formatTime(elapsed);
+ SwingUtilities.invokeLater(() -> timeLabel.setText(formattedTime));
+ }
+
+ private String formatTime(long elapsed) {
+ int seconds = (int) (elapsed / 1000) % 60;
+ int minutes = (int) ((elapsed / (1000 * 60)) % 60);
+ int hours = (int) ((elapsed / (1000 * 60 * 60)) % 24);
+ return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+ }
+ public static void main(String[] args) {
+ SwingUtilities.invokeLater(() -> {
+ Stopwatch stopwatch = new Stopwatch();
+ stopwatch.setVisible(true);
+ });
+ }
+}
+
+
+
+
+
+
+
+11)Develop a program using AWT controls in Java.
+
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class AWTControls {
+    public static void main(String[] args) {
+
+        // Create a frame
+        Frame frame = new Frame("AWT Example");
+
+        // Create a label
+        Label label = new Label("Enter text:");
+        label.setBounds(20, 50, 100, 30);
+
+        // Create a text field
+        TextField textField = new TextField();
+        textField.setBounds(120, 50, 150, 30);
+
+        // Create a button
+        Button button = new Button("Submit");
+        button.setBounds(120, 100, 80, 30);
+
+        // Create a label to display the output
+        Label outputLabel = new Label("");
+        outputLabel.setBounds(20, 150, 250, 30);
+
+        // Add action listener to button
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String inputText = textField.getText();
+                outputLabel.setText("You entered: " + inputText);
+            }
+        });
+
+        // Add components to the frame
+        frame.add(label);
+        frame.add(textField);
+        frame.add(button);
+        frame.add(outputLabel);
+
+        // Set layout to null (absolute positioning)
+        frame.setLayout(null);
+
+        // Set size of the frame
+        frame.setSize(300, 250);
+
+        // Make frame visible
+        frame.setVisible(true);
+
+        // Add window listener to close the application
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                System.exit(0);
+            }
+        });
+    }
+}
+
+
+
+
+
+12)ChatServer.java
+import java.io.*;
+import java.net.*;
+import java.util.*;
+public class ChatServer {
+private static Set<PrintWriter> clientWriters = new HashSet<>();
+ public static void main(String[] args) {
+ System.out.println("Chat server started...");
+ try (ServerSocket serverSocket = new ServerSocket(12345)) {
+ while (true) {
+ new ClientHandler(serverSocket.accept()).start();
+ }
+ } catch (IOException e) {
+ e.printStackTrace();
+ }
+ }
+ private static class ClientHandler extends Thread {
+ private Socket socket;
+ private PrintWriter out;
+ private BufferedReader in;
+ public ClientHandler(Socket socket) {
+ this.socket = socket;
+ }
+ public void run() {
+ try {
+ in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+ out = new PrintWriter(socket.getOutputStream(), true);
+ synchronized (clientWriters) {
+ clientWriters.add(out);
+ }
+ String message;
+ while ((message = in.readLine()) != null) {
+ System.out.println("Received: " + message);
+ synchronized (clientWriters) {
+ for (PrintWriter writer : clientWriters) {
+ writer.println(message);
+ }
+ }
+ }
+ } catch (IOException e) {
+ e.printStackTrace();
+ } finally {
+ try {
+ socket.close();
+ } catch (IOException e) {
+ e.printStackTrace();
+ }
+ synchronized (clientWriters) {
+ clientWriters.remove(out);
+ }
+ }
+ }
+ }
+}
+
+ChatClient.java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+public class ChatClient {
+private Socket socket;
+ private PrintWriter out;
+ private BufferedReader in;
+ private Frame frame;
+ private TextArea textArea;
+ private TextField textField;
+ public ChatClient(String serverAddress) {
+ try {
+ socket = new Socket(serverAddress, 12345);
+ in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+ out = new PrintWriter(socket.getOutputStream(), true);
+ setupGUI();
+ new Thread(this::listenForMessages).start();
+ } catch (IOException e) {
+ e.printStackTrace();
+ }
+ }
+ private void setupGUI() {
+ frame = new Frame("Chat Client");
+ textArea = new TextArea();
+ textField = new TextField();
+ textArea.setEditable(false);
+ frame.add(textArea, BorderLayout.CENTER);
+ frame.add(textField, BorderLayout.SOUTH);
+ textField.addActionListener(new ActionListener() {
+ public void actionPerformed(ActionEvent e) {
+ String message = textField.getText();
+ out.println(message);
+ textField.setText("");
+ }
+ });
+ frame.setSize(400, 300);
+ frame.addWindowListener(new WindowAdapter() {
+ public void windowClosing(WindowEvent we) {
+ try {
+ socket.close();
+ } catch (IOException e) {
+ e.printStackTrace();
+ }
+ System.exit(0);
+ }
+ });
+ frame.setVisible(true);
+ }
+ private void listenForMessages() {
+ try {
+ String message;
+ while ((message = in.readLine()) != null) {
+ textArea.append(message + "\n");
+ }
+ } catch (IOException e) {
+ e.printStackTrace();
+ }
+ }
+ public static void main(String[] args) {
+ new ChatClient("localhost"); // Change "localhost" to server's IP if needed
+ }
+}
+
+
